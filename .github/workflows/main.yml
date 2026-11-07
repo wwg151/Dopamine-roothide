@@ -108,12 +108,16 @@ jobs:
           export BASEDIR="$(pwd)"
           export THEOS="${BASEDIR}/theos"
           gmake -j$(sysctl -n hw.physicalcpu) NIGHTLY=1
-          mv Application/Dopamine.tipa Dopamine-roothide-${{ env.VERSION }}.ipa
+          APP_VERSION="$(cat ./BaseBin/_external/basebin/.version)-$(cat ./BaseBin/_external/basebin/.version-roothide)"
+          echo "APP_VERSION=${APP_VERSION}" >> $GITHUB_ENV
+          ls -l ./Application/*.ipa ./Application/*.tipa
 
       - name: Upload Artifact
         id: dopamine-latest-upload
         uses: actions/upload-artifact@main
         with:
           name: Dopamine
+          if-no-files-found: error
           path: |
-            ${{ github.workspace }}/Application/Dopamine-roothide-${{ env.VERSION }}.ipa
+            ${{ github.workspace }}/Application/Dopamine-roothide-${{ env.APP_VERSION }}.ipa
+            ${{ github.workspace }}/Application/Dopamine-roothide-${{ env.APP_VERSION }}.tipa
