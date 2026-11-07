@@ -139,3 +139,9 @@
 "Menu_Reboot_Title" = "重启设备";
 "Settings" = "设置";
 "Mismatching_Environment_Version_Update_Body" = "本机的越狱环境版本与已更新安装 App 版本不匹配。 \n点击更新按钮执行一次「重启用户空间」更新越狱环境。";
+
+// 基板选择
+"Substrate_Picker_Title" = "选择基板";
+"Substrate_Picker_Message" = "选择要安装的基板，来完成最后的越狱（如果不知道选择哪个，选择ellekit，libhooker只支持ios16+）";
+"Substrate_Picker_ElleKit" = "ellekit（默认）";
+"Substrate_Picker_Libhooker" = "libhooker";

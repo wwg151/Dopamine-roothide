@@ -517,16 +517,16 @@ typedef NS_ENUM(NSInteger, DOSubstrateType) {
             return;
         }
 
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"选择基板"
-                                                                                 message:@"选择要安装的基板，来完成最后的越狱（如果不知道选择哪个，选择ellekit，libhooker只支持ios16+）"
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:DOLocalizedString(@"Substrate_Picker_Title")
+                                                                                 message:DOLocalizedString(@"Substrate_Picker_Message")
                                                                           preferredStyle:UIAlertControllerStyleAlert];
 
-        UIAlertAction *ellekitAction = [UIAlertAction actionWithTitle:@"ellekit（默认）" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *ellekitAction = [UIAlertAction actionWithTitle:DOLocalizedString(@"Substrate_Picker_ElleKit") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             substrateType = DOSubstrateTypeElleKit;
             dispatch_semaphore_signal(choiceSemaphore);
         }];
 
-        UIAlertAction *libhookerAction = [UIAlertAction actionWithTitle:@"libhooker" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *libhookerAction = [UIAlertAction actionWithTitle:DOLocalizedString(@"Substrate_Picker_Libhooker") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             substrateType = DOSubstrateTypeLibhooker;
             dispatch_semaphore_signal(choiceSemaphore);
         }];

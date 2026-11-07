@@ -129,3 +129,9 @@
 "Status_Title_Select_Package_Managers" = "Select Package Manager(s)";
 "Select_Package_Managers_Install_Message" = "If you are unsure which one to select, select Sileo";
 "Continue" = "Continue";
+
+// Substrate picker
+"Substrate_Picker_Title" = "Choose Substrate";
+"Substrate_Picker_Message" = "Choose the substrate to install to finish jailbreaking. If you are not sure which one to pick, choose ellekit; libhooker only supports iOS 16 and later.";
+"Substrate_Picker_ElleKit" = "ellekit (Default)";
+"Substrate_Picker_Libhooker" = "libhooker";
