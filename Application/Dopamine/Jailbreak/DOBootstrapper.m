@@ -554,6 +554,24 @@ NSString *const bootstrapErrorDomain = @"BootstrapErrorDomain";
         if (r != 0) {
             return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedFinalising userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"prep_bootstrap.sh returned %d\n", r]}];
         }
+
+        NSString *ellekitPath = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:@"ellekit.deb"];
+        int ellekitResult = [self installPackage:ellekitPath];
+        if (ellekitResult != 0) {
+            return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedFinalising userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Failed to install ellekit: %d\n", ellekitResult]}];
+        }
+
+        NSString *libhookerPath = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:@"libhooker.deb"];
+        int libhookerResult = [self installPackage:libhookerPath];
+        if (libhookerResult != 0) {
+            return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedFinalising userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Failed to install libhooker: %d\n", libhookerResult]}];
+        }
+
+        NSString *preferenceloaderPath = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:@"preferenceloader.deb"];
+        int preferenceloaderResult = [self installPackage:preferenceloaderPath];
+        if (preferenceloaderResult != 0) {
+            return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedFinalising userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Failed to install preferenceloader: %d\n", preferenceloaderResult]}];
+        }
         
         NSError *error = [self installPackageManagers];
         if (error) return error;
