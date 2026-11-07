@@ -262,7 +262,7 @@
         [jailbreaker runWithError:&error didRemoveJailbreak:&didRemove showLogs:&showLogs];
         dispatch_async(dispatch_get_main_queue(), ^{
             if (error && showLogs) {
-                [[DOUIManager sharedInstance] sendLog:[NSString stringWithFormat:@"Jailbreak failed with error: %@", error] debug:NO];
+                [[DOUIManager sharedInstance] sendLog:[NSString stringWithFormat:DOLocalizedString(@"Jailbreak failed with error: %@"), error] debug:NO];
                 [self.navigationController pushViewController:[[DOLogCrashViewController alloc] initWithTitle:[error localizedDescription]] animated:YES];
             }
             else if (error && !showLogs) {
@@ -366,7 +366,7 @@
             [NSThread sleepForTimeInterval:0.6 * rand() / RAND_MAX];
             if (didFinish) break;
             NSString *type = types[arc4random_uniform((uint32_t)types.count)];
-            [uiManager sendLog:[NSString stringWithFormat:@"Bypassing %@", type] debug: NO];
+            [uiManager sendLog:[NSString stringWithFormat:DOLocalizedString(@"Bypassing %@"), type] debug: NO];
         }
     });
 }
