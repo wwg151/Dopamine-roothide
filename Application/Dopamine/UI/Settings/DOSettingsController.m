@@ -172,7 +172,7 @@
         
         PSSpecifier *headerSpecifier = [PSSpecifier emptyGroupSpecifier];
         [headerSpecifier setProperty:@"DOHeaderCell" forKey:@"headerCellClass"];
-        [headerSpecifier setProperty:[NSString stringWithFormat:@"Settings"] forKey:@"title"];
+        [headerSpecifier setProperty:[NSString stringWithFormat:DOLocalizedString(@"Settings")] forKey:@"title"];
         [specifiers addObject:headerSpecifier];
         
         if (envManager.isSupported) {
