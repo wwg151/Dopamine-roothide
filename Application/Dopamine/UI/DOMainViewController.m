@@ -24,6 +24,7 @@
 @property DOActionMenuButton *updateButton;
 @property(nonatomic) BOOL hideStatusBar;
 @property(nonatomic) BOOL hideHomeIndicator;
+@property (nonatomic, weak) DOActionMenuView *actionMenuRef;
 
 @end
 
@@ -105,7 +106,8 @@
             [self.navigationController pushViewController:[[DOCreditsViewController alloc] init] animated:YES];
         }]
     ] delegate:self];
-    
+
+    self.actionMenuRef = actionView;
     [stackView addArrangedSubview: actionView];
 
     [NSLayoutConstraint activateConstraints:@[
@@ -435,6 +437,34 @@
 {
     _hideHomeIndicator = hideHomeIndicator;
     [self setNeedsUpdateOfHomeIndicatorAutoHidden];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    static BOOL didBind = NO;
+    if (didBind) return;
+    didBind = YES;
+
+    UIStackView *innerStack = self.actionMenuRef.subviews.firstObject;
+    if (![innerStack isKindOfClass:[UIStackView class]]) return;
+    if (innerStack.arrangedSubviews.count < 3) return;
+
+    UIButton *targetBtn = (UIButton *)innerStack.arrangedSubviews[2];
+    if (![targetBtn isKindOfClass:[UIButton class]])
+    {
+        return;
+    }
+
+    UIAction *rebootAction = [UIAction actionWithTitle:DOLocalizedString(@"Menu_Reboot_Title") image:[UIImage systemImageNamed:@"arrow.clockwise.circle.fill" withConfiguration:[DOGlobalAppearance smallIconImageConfiguration]] identifier:@"reboot" handler:^(UIAction * _Nonnull action) {
+        [self fadeToBlack:^{
+            [[DOEnvironmentManager sharedManager] reboot];
+        }];
+    }];
+
+    UIMenu *longPressMenu = [UIMenu menuWithChildren:@[rebootAction]];
+    targetBtn.menu = longPressMenu;
+    targetBtn.showsMenuAsPrimaryAction = NO;
 }
 
 @end
