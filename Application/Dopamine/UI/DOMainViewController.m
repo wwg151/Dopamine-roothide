@@ -97,6 +97,11 @@
                 [[DOEnvironmentManager sharedManager] respring];
             }];
         }],
+        [UIAction actionWithTitle:DOLocalizedString(@"Menu_Reboot_Title") image:[UIImage systemImageNamed:@"arrow.clockwise.circle.fill" withConfiguration:[DOGlobalAppearance smallIconImageConfiguration]] identifier:@"reboot" handler:^(__kindof UIAction * _Nonnull action) {
+            [self fadeToBlack:^{
+                [[DOEnvironmentManager sharedManager] reboot];
+            }];
+        }],
         [UIAction actionWithTitle:DOLocalizedString(@"Menu_Reboot_Userspace_Title") image:[UIImage systemImageNamed:@"arrow.clockwise.circle" withConfiguration:[DOGlobalAppearance smallIconImageConfiguration]] identifier:@"reboot-userspace" handler:^(__kindof UIAction * _Nonnull action) {
             [self fadeToBlack:^{
                 [[DOEnvironmentManager sharedManager] rebootUserspace];
@@ -404,7 +409,7 @@
 
 - (BOOL)actionMenuActionIsEnabled:(UIAction *)action
 {
-    if ([action.identifier isEqualToString:@"respring"] || [action.identifier isEqualToString:@"reboot-userspace"]) {
+    if ([action.identifier isEqualToString:@"respring"] || [action.identifier isEqualToString:@"reboot"] || [action.identifier isEqualToString:@"reboot-userspace"]) {
         return [[DOEnvironmentManager sharedManager] isJailbroken];
     }
     return YES;
@@ -442,29 +447,8 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    static BOOL didBind = NO;
-    if (didBind) return;
-    didBind = YES;
-
-    UIStackView *innerStack = self.actionMenuRef.subviews.firstObject;
-    if (![innerStack isKindOfClass:[UIStackView class]]) return;
-    if (innerStack.arrangedSubviews.count < 3) return;
-
-    UIButton *targetBtn = (UIButton *)innerStack.arrangedSubviews[2];
-    if (![targetBtn isKindOfClass:[UIButton class]])
-    {
-        return;
-    }
-
-    UIAction *rebootAction = [UIAction actionWithTitle:DOLocalizedString(@"Menu_Reboot_Title") image:[UIImage systemImageNamed:@"arrow.clockwise.circle.fill" withConfiguration:[DOGlobalAppearance smallIconImageConfiguration]] identifier:@"reboot" handler:^(UIAction * _Nonnull action) {
-        [self fadeToBlack:^{
-            [[DOEnvironmentManager sharedManager] reboot];
-        }];
-    }];
-
-    UIMenu *longPressMenu = [UIMenu menuWithChildren:@[rebootAction]];
-    targetBtn.menu = longPressMenu;
-    targetBtn.showsMenuAsPrimaryAction = NO;
+/* Reboot is now a regular action in the action menu (between Respring and Reboot Userspace);
+   the old long-press menu hack on the third menu row was removed. */
 }
 
 @end
