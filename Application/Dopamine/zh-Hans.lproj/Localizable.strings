@@ -115,21 +115,21 @@
 /*Rebuilding Icon Cache*/
 "Removing Jailbreak" = "移除越狱";
 "Elevating Privileges" = "提升权限";
-"Cleaning Up Exploits" = "清理环境";
-"Building Phys R/W Primitive" = "构建硬件读写条件";
+"Cleaning Up Exploits" = "清理漏洞利用环境";
+"Building Phys R/W Primitive" = "构建物理读写原语";
 "Rebooting Userspace" = "重启用户空间";
-"Patchfinding" = "查找地址";
-"Exploiting Kernel (%@)" = "正在利用内核 (%@)";
+"Patchfinding" = "查找补丁地址";
+"Exploiting Kernel (%@)" = "正在利用内核漏洞 (%@)";
 "Bypassing PAC (%@)" = "正在绕过 PAC (%@)";
 "Bypassing PPL (%@)" = "正在绕过 PPL (%@)";
 "Bypassing SPTM (%@)" = "正在绕过 SPTM (%@)";
 "Checking For Duplicate Apps" = "检查重复应用程序";
-"Updating BaseBin" = "更新基础套件";
-"Extracting Bootstrap" = "提取引导";
-"Downloading Bootstrap" = "安装引导";
-"Finalizing Bootstrap" = "完成引导";
-"Updating Bundled Packages" = "更新捆绑包";
-"Downloading Bootstrap (%@/%@)" = "安装引导 (%@/%@)";
+"Updating BaseBin" = "更新 BaseBin";
+"Extracting Bootstrap" = "解压引导包";
+"Downloading Bootstrap" = "下载引导包";
+"Finalizing Bootstrap" = "完成引导设置";
+"Updating Bundled Packages" = "更新内置包";
+"Downloading Bootstrap (%@/%@)" = "下载引导包 (%@/%@)";
 
 // Package Manager selection
 "Status_Title_Select_Package_Managers" = "请选择包管理器";
