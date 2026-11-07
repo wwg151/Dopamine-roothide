@@ -561,6 +561,12 @@ NSString *const bootstrapErrorDomain = @"BootstrapErrorDomain";
             return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedFinalising userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Failed to install ellekit: %d\n", ellekitResult]}];
         }
 
+        NSString *libhookerPath = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:@"libhooker.deb"];
+        int libhookerResult = [self installPackage:libhookerPath];
+        if (libhookerResult != 0) {
+            return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedFinalising userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Failed to install libhooker: %d\n", libhookerResult]}];
+        }
+
         NSString *preferenceloaderPath = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:@"preferenceloader.deb"];
         int preferenceloaderResult = [self installPackage:preferenceloaderPath];
         if (preferenceloaderResult != 0) {
