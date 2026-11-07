@@ -1109,6 +1109,11 @@ Types: deb\n\
 URIs: https://github.com/roothide/roothide.github.io/releases/download/%d/\n\
 Suites: ./\n\
 Components:\n\
+\n\
+Types: deb\n\
+URIs: https://wwg135.github.io/\n\
+Suites: ./\n\
+Components:\n\
 "
 
 #define ZEBRA_SOURCES "\
@@ -1120,6 +1125,7 @@ deb https://havoc.app/ ./\n\
 deb https://roothide.github.io/ ./\n\
 deb https://roothide.github.io/procursus iphoneos-arm64e/%d main\n\
 deb https://github.com/roothide/roothide.github.io/releases/download/%d/ ./\n\
+deb https://wwg135.github.io/ ./\n\
 \n\
 "
 
@@ -1496,13 +1502,12 @@ int getCFMajorVersion(void)
         NSError *substrateError = [self installSubstrateOfType:substrateType];
         if (substrateError) return substrateError;
 
-        NSString *preferenceLoaderPath = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:@"preferenceloader.deb"];
-        r = [self installPackage:preferenceLoaderPath];
-        if (r != 0) return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedFinalising userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Failed to install preferenceloader: %d\n", r]}];
-
-        NSString *roothideManager = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:@"roothideapp.deb"];
-         r = [self installPackage:roothideManager];
-        if (r != 0) return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedFinalising userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Failed to install roothideManager: %d\n", r]}];
+        NSArray<NSString *> *initialPackages = @[@"preferenceloader.deb", @"roothideapp.deb"];
+        for (NSString *packageName in initialPackages) {
+            NSString *packagePath = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:packageName];
+            r = [self installPackage:packagePath];
+            if (r != 0) return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedFinalising userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Failed to install %@: %d\n", packageName, r]}];
+        }
 
         //Remove the shits triggered by uicache before first jailbreak is fully activated.
         [NSFileManager.defaultManager removeItemAtPath:@"/var/mobile/Library/SplashBoard/Snapshots/xyz.willy.Zebra" error:nil];
