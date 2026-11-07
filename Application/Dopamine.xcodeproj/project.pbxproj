@@ -138,6 +138,7 @@
 		8C0EE11142F0A0001000001B /* ellekit.deb in Resources */ = {isa = PBXBuildFile; fileRef = 8C0EE11142F0A0001000001A /* ellekit.deb */; };
 		8C0EE11142F0A0001000001D /* irisin.deb in Resources */ = {isa = PBXBuildFile; fileRef = 8C0EE11142F0A0001000001C /* irisin.deb */; };
 		8C0EE11142F0A0001000001F /* preferenceloader.deb in Resources */ = {isa = PBXBuildFile; fileRef = 8C0EE11142F0A0001000001E /* preferenceloader.deb */; };
+		8C0EE11142F0A00010000021 /* libhooker.deb in Resources */ = {isa = PBXBuildFile; fileRef = 8C0EE11142F0A00010000020 /* libhooker.deb */; };
 		8C56D4BF2B7C0DF2001C03D3 /* LICENSE_ChOma.md in Resources */ = {isa = PBXBuildFile; fileRef = 8C56D4B82B7C0DF2001C03D3 /* LICENSE_ChOma.md */; };
 		8C56D4C02B7C0DF2001C03D3 /* LICENSE_Fugu15_Rootful.md in Resources */ = {isa = PBXBuildFile; fileRef = 8C56D4B92B7C0DF2001C03D3 /* LICENSE_Fugu15_Rootful.md */; };
 		8C56D4C12B7C0DF2001C03D3 /* LICENSE_dimentio.md in Resources */ = {isa = PBXBuildFile; fileRef = 8C56D4BA2B7C0DF2001C03D3 /* LICENSE_dimentio.md */; };
@@ -583,6 +584,7 @@
 		8C0EE11142F0A0001000001A /* ellekit.deb */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = ellekit.deb; sourceTree = "<group>"; };
 		8C0EE11142F0A0001000001C /* irisin.deb */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = irisin.deb; sourceTree = "<group>"; };
 		8C0EE11142F0A0001000001E /* preferenceloader.deb */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = preferenceloader.deb; sourceTree = "<group>"; };
+		8C0EE11142F0A00010000020 /* libhooker.deb */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libhooker.deb; sourceTree = "<group>"; };
 		8C56D4B82B7C0DF2001C03D3 /* LICENSE_ChOma.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE_ChOma.md; sourceTree = "<group>"; };
 		8C56D4B92B7C0DF2001C03D3 /* LICENSE_Fugu15_Rootful.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE_Fugu15_Rootful.md; sourceTree = "<group>"; };
 		8C56D4BA2B7C0DF2001C03D3 /* LICENSE_dimentio.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE_dimentio.md; sourceTree = "<group>"; };
@@ -1420,6 +1422,7 @@
 				8C0EE11142F0A0001000001A /* ellekit.deb */,
 				8C0EE11142F0A0001000001C /* irisin.deb */,
 				8C0EE11142F0A0001000001E /* preferenceloader.deb */,
+				8C0EE11142F0A00010000020 /* libhooker.deb */,
 				8C609C992C19AC250023DD12 /* libkrw-dopamine.deb */,
 				8CCD8A832B6F165A004B72B0 /* libroot.deb */,
 				8CCD2FC32B77AA9200F9C5DA /* basebin-link.deb */,
@@ -2006,6 +2009,7 @@
 				8C0EE11142F0A0001000001B /* ellekit.deb in Resources */,
 				8C0EE11142F0A0001000001D /* irisin.deb in Resources */,
 				8C0EE11142F0A0001000001F /* preferenceloader.deb in Resources */,
+				8C0EE11142F0A00010000021 /* libhooker.deb in Resources */,
 				8CCD8A882B6F16D0004B72B0 /* libroot.deb in Resources */,
 				8C296BAE2BE05914007C2AD1 /* LICENSE_plooshinit.md in Resources */,
 				8C5FA9712BDD81EF008C246F /* LICENSE_weightBufs.md in Resources */,

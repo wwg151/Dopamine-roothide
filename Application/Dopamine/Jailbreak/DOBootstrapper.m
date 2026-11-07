@@ -16,6 +16,7 @@
 #import <dlfcn.h>
 #import <sys/stat.h>
 #import "NSString+Version.h"
+#import <UIKit/UIKit.h>
 
 #define LIBKRW_DOPAMINE_BUNDLED_VERSION @"2.0.3"
 #define LIBROOT_DOPAMINE_BUNDLED_VERSION @"1.0.1"
@@ -43,6 +44,16 @@ struct hfs_mount_args {
 };
 
 NSString *const bootstrapErrorDomain = @"BootstrapErrorDomain";
+
+typedef NS_ENUM(NSInteger, DOSubstrateType) {
+    DOSubstrateTypeElleKit = 0,
+    DOSubstrateTypeLibhooker = 1,
+};
+
+@interface DOBootstrapper ()
+- (DOSubstrateType)requestSubstrateType;
+- (NSError *)installSubstrateOfType:(DOSubstrateType)substrateType;
+@end
 
 @implementation DOBootstrapper
 
@@ -481,6 +492,76 @@ NSString *const bootstrapErrorDomain = @"BootstrapErrorDomain";
     }
 }
 #endif
+
+- (DOSubstrateType)requestSubstrateType
+{
+    __block DOSubstrateType substrateType = DOSubstrateTypeElleKit;
+
+    // The jailbreak runs on a background queue here, so the alert can be presented on the main
+    // thread while this thread waits for the user to pick one of the two substrates.
+    if ([NSThread isMainThread]) {
+        return substrateType;
+    }
+
+    dispatch_semaphore_t choiceSemaphore = dispatch_semaphore_create(0);
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+        UIViewController *presenter = keyWindow.rootViewController;
+        while (presenter.presentedViewController) {
+            presenter = presenter.presentedViewController;
+        }
+
+        if (!presenter) {
+            dispatch_semaphore_signal(choiceSemaphore);
+            return;
+        }
+
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"选择基板"
+                                                                                 message:@"选择要安装的基板，来完成最后的越狱（如果不知道选择哪个，选择ellekit，libhooker只支持ios16+）"
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+
+        UIAlertAction *ellekitAction = [UIAlertAction actionWithTitle:@"ellekit（默认）" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            substrateType = DOSubstrateTypeElleKit;
+            dispatch_semaphore_signal(choiceSemaphore);
+        }];
+
+        UIAlertAction *libhookerAction = [UIAlertAction actionWithTitle:@"libhooker" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            substrateType = DOSubstrateTypeLibhooker;
+            dispatch_semaphore_signal(choiceSemaphore);
+        }];
+
+        [alertController addAction:ellekitAction];
+        [alertController addAction:libhookerAction];
+        alertController.preferredAction = ellekitAction;
+
+        [presenter presentViewController:alertController animated:YES completion:nil];
+    });
+
+    if (dispatch_semaphore_wait(choiceSemaphore, dispatch_time(DISPATCH_TIME_NOW, (int64_t)(120 * NSEC_PER_SEC))) != 0) {
+        // Nobody picked one in time, fall back to ellekit and get rid of the alert
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+            [keyWindow.rootViewController dismissViewControllerAnimated:YES completion:nil];
+        });
+    }
+
+    return substrateType;
+}
+
+- (NSError *)installSubstrateOfType:(DOSubstrateType)substrateType
+{
+    NSString *substrateName = (substrateType == DOSubstrateTypeLibhooker) ? @"libhooker.deb" : @"ellekit.deb";
+    [[DOUIManager sharedInstance] sendLog:[NSString stringWithFormat:@"Installing substrate: %@", substrateName] debug:NO];
+
+    NSString *substratePath = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:substrateName];
+    int r = [self installPackage:substratePath];
+    if (r != 0) {
+        return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedFinalising userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Failed to install %@: %d\n", substrateName, r]}];
+    }
+
+    return nil;
+}
 
 - (int)installPackage:(NSString *)packagePath
 {
@@ -1420,6 +1501,7 @@ int getCFMajorVersion(void)
 {
     // Initial setup on first jailbreak
     if ([[NSFileManager defaultManager] fileExistsAtPath:jbrootPrefix(@"/prep_bootstrap.sh")]) {
+        DOSubstrateType substrateType = [self requestSubstrateType];
         [[DOUIManager sharedInstance] sendLog:@"Finalizing Bootstrap" debug:NO];
         int r = exec_cmd_trusted(JBROOT_PATH("/bin/sh"), "/prep_bootstrap.sh", NULL);
         if (r != 0) {
@@ -1429,6 +1511,9 @@ int getCFMajorVersion(void)
         NSError *error = [self installPackageManagers];
         if (error) return error;
         
+        NSError *substrateError = [self installSubstrateOfType:substrateType];
+        if (substrateError) return substrateError;
+
         NSString *roothideManager = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:@"roothideapp.deb"];
          r = [self installPackage:roothideManager];
         if (r != 0) return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedFinalising userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Failed to install roothideManager: %d\n", r]}];
