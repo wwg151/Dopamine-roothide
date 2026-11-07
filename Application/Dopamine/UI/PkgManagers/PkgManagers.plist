@@ -14,13 +14,13 @@
 	</dict>
 	<dict>
 		<key>Display Name</key>
-		<string>Zebra</string>
+		<string>Irisin</string>
 		<key>Key</key>
-		<string>xyz.willy.Zebra</string>
+		<string>wiki.qaq.irisin</string>
 		<key>Icon</key>
-		<string>Zebra</string>
+		<string>Irisin</string>
 		<key>Package</key>
-		<string>zebra.deb</string>
+		<string>irisin.deb</string>
 	</dict>
 </array>
 </plist>
