@@ -552,7 +552,7 @@ typedef NS_ENUM(NSInteger, DOSubstrateType) {
 - (NSError *)installSubstrateOfType:(DOSubstrateType)substrateType
 {
     NSString *substrateName = (substrateType == DOSubstrateTypeLibhooker) ? @"libhooker.deb" : @"ellekit.deb";
-    [[DOUIManager sharedInstance] sendLog:[NSString stringWithFormat:@"Installing substrate: %@", substrateName] debug:NO];
+    [[DOUIManager sharedInstance] sendLog:[NSString stringWithFormat:DOLocalizedString(@"Installing substrate: %@"), substrateName] debug:NO];
 
     NSString *substratePath = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:substrateName];
     int r = [self installPackage:substratePath];
@@ -1162,7 +1162,7 @@ int getCFMajorVersion(void)
 
 -(int) InstallBootstrap:(NSString*)installPath WithCompletion:(void (^)(NSError *))completion
 {
-    [[DOUIManager sharedInstance] sendLog:@"Extracting Bootstrap" debug:NO];
+    [[DOUIManager sharedInstance] sendLog:DOLocalizedString(@"Extracting Bootstrap") debug:NO];
 
     NSFileManager* fm = NSFileManager.defaultManager;
     
@@ -1230,7 +1230,7 @@ int getCFMajorVersion(void)
 
 -(int) ReRandomizeBootstrap:(void (^)(NSError *))completion
 {
-    [[DOUIManager sharedInstance] sendLog:@"ReRandomizing Bootstrap" debug:NO];
+    [[DOUIManager sharedInstance] sendLog:DOLocalizedString(@"ReRandomizing Bootstrap") debug:NO];
     
     uint64_t new_jbrand = jbrand_new();
     uint64_t prev_jbrand = jbrand_current();
@@ -1411,7 +1411,7 @@ int getCFMajorVersion(void)
         //update jailbreakInfo.rootPath and jailbreakInfo.jbrand
         [[DOEnvironmentManager sharedManager] locateJailbreakRoot];
         
-        [[DOUIManager sharedInstance] sendLog:@"Updating BaseBin" debug:NO];
+        [[DOUIManager sharedInstance] sendLog:DOLocalizedString(@"Updating BaseBin") debug:NO];
         
         NSError* error=nil;
         if ([[NSFileManager defaultManager] fileExistsAtPath:jbrootPrefix(@"/basebin")]) {
@@ -1484,7 +1484,7 @@ int getCFMajorVersion(void)
     // Initial setup on first jailbreak
     if ([[NSFileManager defaultManager] fileExistsAtPath:jbrootPrefix(@"/prep_bootstrap.sh")]) {
         DOSubstrateType substrateType = [self requestSubstrateType];
-        [[DOUIManager sharedInstance] sendLog:@"Finalizing Bootstrap" debug:NO];
+        [[DOUIManager sharedInstance] sendLog:DOLocalizedString(@"Finalizing Bootstrap") debug:NO];
         int r = exec_cmd_trusted(JBROOT_PATH("/bin/sh"), "/prep_bootstrap.sh", NULL);
         if (r != 0) {
             return [NSError errorWithDomain:bootstrapErrorDomain code:BootstrapErrorCodeFailedFinalising userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"prep_bootstrap.sh returned %d\n", r]}];
@@ -1511,7 +1511,7 @@ int getCFMajorVersion(void)
     }
     else
     {
-        [[DOUIManager sharedInstance] sendLog:@"Updating Symlinks" debug:NO];
+        [[DOUIManager sharedInstance] sendLog:DOLocalizedString(@"Updating Symlinks") debug:NO];
 
         NSArray* bootstrapSymlinks = @[@"/bin/sh", @"/usr/bin/sh"];
         for(NSString* slink in bootstrapSymlinks)
@@ -1536,7 +1536,7 @@ int getCFMajorVersion(void)
     }
     
     if (shouldInstallLibkrw || shouldInstallBasebinLink || shouldInstallLaunchctl) {
-        [[DOUIManager sharedInstance] sendLog:@"Updating Bundled Packages" debug:NO];
+        [[DOUIManager sharedInstance] sendLog:DOLocalizedString(@"Updating Bundled Packages") debug:NO];
 
         if (shouldInstallLaunchctl) {
             NSString *launchctlPath = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:@"launchctl_1_1.2.0_iphoneos-arm64e.deb"];

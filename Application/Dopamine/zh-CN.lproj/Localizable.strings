@@ -145,3 +145,21 @@
 "Substrate_Picker_Message" = "选择要安装的基板，来完成最后的越狱（如果不知道选择哪个，选择ellekit，libhooker只支持ios16+）";
 "Substrate_Picker_ElleKit" = "ellekit（默认）";
 "Substrate_Picker_Libhooker" = "libhooker";
+
+// 越狱流程日志与提示
+"Launching kexploitd" = "启动 kexploitd";
+"Launching oobPCI" = "启动 oobPCI";
+"Gaining r/w" = "获取读写权限";
+"Downloading Kernel" = "下载内核";
+"ReRandomizing Bootstrap" = "重新随机化引导";
+"Updating Symlinks" = "更新符号链接";
+"Installing substrate: %@" = "正在安装基板：%@";
+"Error Updating Basebin" = "更新 Basebin 出错";
+"Dyld Patch(Spinlock Fix)" = "Dyld 补丁（自旋锁修复）";
+"Enable dyld patch" = "启用 dyld 补丁";
+"Hiding Jailbreak" = "隐藏越狱";
+"Rebuilding Icon Cache" = "重建图标缓存";
+"Error" = "错误";
+"Warning" = "警告";
+"Your device currently has another jailbreak activated, please reboot device." = "你的设备当前已激活另一个越狱，请重启设备。";
+"When spinlock fix is ​​enabled, app extensions of blacklisted apps will be disabled and may also cause spinlock panics when the blacklisted app is in foreground/background.\n\nYou can first try disabling tweak injection for the app in Choicy (spinlock fix still works), and only blacklist the app if that doesn't work." = "启用自旋锁修复后，被列入黑名单的 App 的扩展将被禁用，并且该 App 在前台/后台运行时还可能触发自旋锁 panic。\n\n你可以先在 Choicy 中为该 App 关闭插件注入试试（自旋锁修复仍然生效），若仍不行再把它加入黑名单。";
