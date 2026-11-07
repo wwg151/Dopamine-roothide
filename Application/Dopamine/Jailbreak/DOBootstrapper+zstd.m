@@ -1,4 +1,5 @@
 #import "DOBootstrapper+zstd.h"
+#import "DOUIManager.h"
 
 #import "zstd.h"
 #define BUFFER_SIZE 8192
