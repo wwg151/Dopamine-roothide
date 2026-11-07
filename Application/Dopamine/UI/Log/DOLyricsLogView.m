@@ -96,7 +96,7 @@
         return;
     }
 
-    [self showLog:@"Done"];
+    [self showLog:@"越狱完成"];
     [self.stackView.arrangedSubviews makeObjectsPerformSelector:@selector(setSuccess)];
 }
 
