@@ -1295,14 +1295,18 @@ int getCFMajorVersion(void)
         }
 
 
-        STRAPLOG("remove unknown/unfinished jbroot %@", subItem);
+        // Do not auto-delete unknown/unfinished jbroot (may be the environment of other roothide-based tools, e.g. Relaxin).
+        // The user did not ask for automatic cleanup here, so keep the directory and only log it.
+        STRAPLOG("keep unknown/unfinished jbroot %@", subItem);
 
+        /*
         NSString* jbroot_secondary = [NSString stringWithFormat:@"/var/mobile/Containers/Shared/AppGroup/%@", subItem];
         if([fm fileExistsAtPath:jbroot_secondary]) {
             DOASSERT([fm removeItemAtPath:jbroot_secondary error:nil]);
         }
-        
+
         DOASSERT([fm removeItemAtPath:jbroot_path error:nil]);
+        */
     }
 
     if(installedCount > 1) {
