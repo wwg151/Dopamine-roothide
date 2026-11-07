@@ -163,3 +163,25 @@
 "Warning" = "警告";
 "Your device currently has another jailbreak activated, please reboot device." = "你的设备当前已激活另一个越狱，请重启设备。";
 "When spinlock fix is ​​enabled, app extensions of blacklisted apps will be disabled and may also cause spinlock panics when the blacklisted app is in foreground/background.\n\nYou can first try disabling tweak injection for the app in Choicy (spinlock fix still works), and only blacklist the app if that doesn't work." = "启用自旋锁修复后，被列入黑名单的 App 的扩展将被禁用，并且该 App 在前台/后台运行时还可能触发自旋锁 panic。\n\n你可以先在 Choicy 中为该 App 关闭插件注入试试（自旋锁修复仍然生效），若仍不行再把它加入黑名单。";
+
+// 引导错误提示
+"Failed to install %@: %d\n" = "安装 %@ 失败：%d\n";
+"prep_bootstrap.sh returned %d\n" = "prep_bootstrap.sh 返回 %d\n";
+"updatelinks.sh returned %d\n" = "updatelinks.sh 返回 %d\n";
+"fixBootstrapSymlink(%@) returned %d\n" = "fixBootstrapSymlink(%@) 返回 %d\n";
+"libarchive returned %d" = "libarchive 返回 %d";
+"Failed to unpack deb: %d\n" = "解包 deb 失败：%d\n";
+"Failed to install libroot: %d\n" = "安装 libroot 失败：%d\n";
+"Failed to install launchctl: %d\n" = "安装 launchctl 失败：%d\n";
+"Failed to install the libkrw plugin: %d\n" = "安装 libkrw 插件失败：%d\n";
+"Failed to install basebin link: %d\n" = "安装 basebin 链接失败：%d\n";
+"Failed to obtain bootstrap URL" = "获取引导下载地址失败";
+"Failed to download bootstrap: %@" = "下载引导失败：%@";
+"Failed deleting existing basebin file with error: %@" = "删除现有 basebin 文件失败：%@";
+"Removing /var/jb symlink failed with error: %@" = "删除 /var/jb 符号链接失败：%@";
+"Removing /var/jb directory failed with error: %@" = "删除 /var/jb 目录失败：%@";
+"Remounting /private/preboot as writable failed with error: %s" = "将 /private/preboot 重新挂载为可写失败：%s";
+"Failed create %@->%@ symlink: Parent dir does not exists" = "创建 %@->%@ 符号链接失败：父目录不存在";
+"ABORT: %s (%d): %s" = "已中止：%s (%d): %s";
+"\n\nThere are multi jbroot in /var/containers/Bundle/Applicaton/\n\n\n" = "\n\n/var/containers/Bundle/Applicaton/ 下存在多个 jbroot\n\n\n";
+"\n\n\n\nYour device has been bootstrapped through the roothide Bootstrap app, please uninject for all apps in the AppList of Bootstrap and unisntall it in the Settings of Bootstrap before jailbreaking with Dopamine.\n\n\n" = "\n\n\n\n你的设备已经通过 roothide Bootstrap App 完成过引导。请先在 Bootstrap 的 AppList 中为所有 App 取消注入，并在 Bootstrap 的设置中卸载它，然后再用 Dopamine 越狱。\n\n\n";
