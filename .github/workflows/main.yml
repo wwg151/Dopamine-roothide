@@ -21,7 +21,7 @@ permissions:
 
 env:
   VERSION: '3.0.13'
-  BUNDLEID: 'com.wwg135.Dopamine'
+  BUNDLEID: 'com.wwg151.Dopamine'
 
 jobs:
   build:
