@@ -24,7 +24,6 @@
 @property DOActionMenuButton *updateButton;
 @property(nonatomic) BOOL hideStatusBar;
 @property(nonatomic) BOOL hideHomeIndicator;
-@property (nonatomic, weak) DOActionMenuView *actionMenuRef;
 
 @end
 
@@ -112,7 +111,6 @@
         }]
     ] delegate:self];
 
-    self.actionMenuRef = actionView;
     [stackView addArrangedSubview: actionView];
 
     [NSLayoutConstraint activateConstraints:@[
